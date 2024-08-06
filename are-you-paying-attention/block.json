@@ -1,0 +1,13 @@
+{
+  "$schema": "http://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "ourplugin/are-you-paying-attention",
+  "title": "Are you Paying Attention",
+  "description": "A custom heading block with a specified level.",
+  "category": "formatting",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "script": "file:./build/script.js",
+  "viewScript":"file:./build/view.js",
+  "style": "file:./build/frontend.css"
+}

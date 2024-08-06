@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Are you paying attention Quiz
-Description: This plugin provides information 
+Plugin Name: Are You Paying Attention Quiz
+Description: This plugin provides an interactive quiz block for WordPress.
 Version: 1.0
 Author: Harsh
 Author URI: https://github.com/
@@ -11,27 +11,33 @@ if (!defined('ABSPATH')) exit;
 
 class AreYouPayingAttention
 {
-    function __construct()
+    public function __construct()
     {
         add_action('init', array($this, 'adminAssets'));
     }
 
-    function adminAssets()
+    public function adminAssets()
     {
-        wp_register_script('ournewblocktype', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-blocks'));
-        register_block_type('ourplugin/are-you-paying-attention', array(
-            'editor_scripts' => 'ournewblocktype',
+        wp_enqueue_style('quiz-edit-css', plugin_dir_url(__FILE__) . 'build/index.css');
+        wp_enqueue_script('ournewblocktype', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'), null, true);
+        
+        register_block_type(__DIR__, array(
             'render_callback' => array($this, 'theHTML')
         ));
     }
-    function theHTML($attributes)
+
+    public function theHTML($attributes)
     {
-        ob_start();?>
-        <h3>
-            Today the sky is <?php $attributes['skyColor']?> and the grass is <?php $attributes['grassColor'] ?>
-        </h3>
+        if (!is_admin()) {
+            wp_enqueue_script('attentionFrontend', plugin_dir_url(__FILE__) . 'build/frontend.js', array('wp-element'), null, true);
+        }
+        
+        ob_start(); ?>
+        <div class="paying-attention-update-me">
+            <pre style="display:none"><?php echo wp_json_encode($attributes)?></pre>
+        </div>
         <?php
-        ob_get_clean();
+        return ob_get_clean();
     }
 }
 
