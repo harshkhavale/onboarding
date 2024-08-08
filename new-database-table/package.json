@@ -1,0 +1,16 @@
+{
+  "name": "new-database-table",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start":"wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@wordpress/scripts": "^28.5.0"
+  }
+}
